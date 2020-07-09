@@ -2,6 +2,16 @@
   "name": "sk-tools",
   "version": "0.0.0",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sushant-kum/sk-tools"
+  },
+  "homepage": "https://tools.sushantk.com",
+  "author": {
+    "name": "Sushant Kumar",
+    "email": "sushant.kum96@gmail.com",
+    "url": "https://sushantk.com"
+  },
   "scripts": {
     "ng": "nx",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
@@ -25,11 +35,13 @@
     "update": "ng update @nrwl/workspace",
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
-    "help": "nx help"
+    "help": "nx help",
+    "commit": "git-cz",
+    "release": "standard-version",
+    "prefreshinstall": "npx del-cli ./node_modules/",
+    "freshinstall": "npm install"
   },
-  "private": true,
   "dependencies": {
-    "@nrwl/angular": "9.5.1",
     "@angular/animations": "^9.1.0",
     "@angular/common": "^9.1.0",
     "@angular/compiler": "^9.1.0",
@@ -38,29 +50,66 @@
     "@angular/platform-browser": "^9.1.0",
     "@angular/platform-browser-dynamic": "^9.1.0",
     "@angular/router": "^9.1.0",
-    "rxjs": "~6.5.4",
+    "@nrwl/angular": "9.5.1",
+    "rxjs": "^6.6.0",
     "zone.js": "^0.10.2"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "0.901.0",
     "@angular/cli": "9.1.0",
-    "@nrwl/workspace": "9.5.1",
-    "@types/node": "~8.9.4",
-    "dotenv": "6.2.0",
-    "ts-node": "~7.0.0",
-    "tslint": "~6.0.0",
-    "eslint": "6.8.0",
-    "typescript": "~3.8.3",
-    "prettier": "2.0.4",
     "@angular/compiler-cli": "^9.1.0",
     "@angular/language-service": "^9.1.0",
-    "@angular-devkit/build-angular": "0.901.0",
-    "codelyzer": "~5.0.1",
-    "jest-preset-angular": "8.1.2",
+    "@commitlint/cli": "^9.0.1",
+    "@commitlint/config-conventional": "^9.0.1",
+    "@nrwl/cypress": "9.5.1",
     "@nrwl/jest": "9.5.1",
-    "jest": "25.2.3",
+    "@nrwl/workspace": "9.5.1",
+    "@types/jasmine": "~2.8.8",
     "@types/jest": "25.1.4",
-    "ts-jest": "25.2.1",
+    "@types/node": "~8.9.4",
+    "codelyzer": "^5.2.2",
     "cypress": "^4.1.0",
-    "@nrwl/cypress": "9.5.1"
+    "cz-conventional-changelog": "^3.2.0",
+    "dotenv": "6.2.0",
+    "eslint": "6.8.0",
+    "husky": "^4.2.5",
+    "jasmine-core": "~2.99.1",
+    "jasmine-spec-reporter": "~4.2.1",
+    "jest": "25.2.3",
+    "jest-preset-angular": "8.1.2",
+    "karma": "~4.0.0",
+    "karma-chrome-launcher": "~2.2.0",
+    "karma-coverage-istanbul-reporter": "~2.0.1",
+    "karma-jasmine": "~1.1.2",
+    "karma-jasmine-html-reporter": "^0.2.2",
+    "lint-staged": "^10.2.11",
+    "prettier": "2.0.4",
+    "standard-version": "^8.0.0",
+    "ts-jest": "25.2.1",
+    "ts-node": "~7.0.0",
+    "tslint": "~6.0.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-etc": "^1.11.1",
+    "tslint-plugin-prettier": "^2.3.0",
+    "typescript": "~3.8.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "lint-staged": {
+    "{apps,libs}/**/*.ts": [
+      "npm run affected:lint  -- --uncommitted --fix --parallel"
+    ],
+    "*.{ts,json,md,scss,html,js}": [
+      "npm run format:write -- --uncommitted"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
   }
 }

@@ -1,8 +1,6 @@
 {
-  "rulesDirectory": [
-    "node_modules/@nrwl/workspace/src/tslint",
-    "node_modules/codelyzer"
-  ],
+  "rulesDirectory": ["node_modules/@nrwl/workspace/src/tslint", "node_modules/codelyzer", "tslint-plugin-prettier"],
+  "extends": ["tslint-etc", "tslint-config-prettier"],
   "linterOptions": {
     "exclude": ["**/*"]
   },
@@ -20,12 +18,7 @@
     "member-ordering": [
       true,
       {
-        "order": [
-          "static-field",
-          "instance-field",
-          "static-method",
-          "instance-method"
-        ]
+        "order": ["static-field", "instance-field", "static-method", "instance-method"]
       }
     ],
     "no-arg": true,
@@ -45,9 +38,54 @@
     "no-string-throw": true,
     "no-switch-case-fall-through": true,
     "no-unnecessary-initializer": true,
+    "no-unused-declaration": {
+      "options": [
+        {
+          "declarations": true,
+          "ignored": {},
+          "imports": true
+        }
+      ],
+      "severity": "warn"
+    },
     "no-unused-expression": true,
     "no-var-keyword": true,
     "object-literal-sort-keys": false,
+    "ordered-imports": [
+      true,
+      {
+        "import-sources-order": "case-insensitive",
+        "name-imports-order": "case-insensitive",
+        "grouped-imports": true,
+        "groups": [
+          {
+            "name": "Third party dependencies",
+            "match": "^(?!((@libs)|(@apps)|(\\.\\.)|(\\.))).+",
+            "order": 10
+          },
+          {
+            "name": "Libraries",
+            "match": "^(@libs).+",
+            "order": 20
+          },
+          {
+            "name": "Apps",
+            "match": "^(@apps).+",
+            "order": 30
+          },
+          {
+            "name": "Same folder",
+            "match": "^\\.\\..+",
+            "order": 40
+          },
+          {
+            "name": "Ancestral folder",
+            "match": "^\\..+",
+            "order": 50
+          }
+        ]
+      }
+    ],
     "prefer-const": true,
     "radix": true,
     "triple-equals": [true, "allow-null-check"],
