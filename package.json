@@ -54,7 +54,11 @@
     "@angular/router": "^10.0.3",
     "@nrwl/angular": "9.5.1",
     "rxjs": "^6.6.0",
-    "zone.js": "^0.10.2"
+    "zone.js": "^0.10.2",
+    "@nestjs/common": "^7.0.0",
+    "@nestjs/core": "^7.0.0",
+    "@nestjs/platform-express": "^7.0.0",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.1000.2",
@@ -93,7 +97,11 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-etc": "^1.11.1",
     "tslint-plugin-prettier": "^2.3.0",
-    "typescript": "~3.9.6"
+    "typescript": "~3.9.6",
+    "@nrwl/node": "9.5.1",
+    "@nestjs/schematics": "^7.0.0",
+    "@nestjs/testing": "^7.0.0",
+    "@nrwl/nest": "9.5.1"
   },
   "config": {
     "commitizen": {
