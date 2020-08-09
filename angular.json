@@ -21,8 +21,8 @@
             "polyfills": "apps/frontend/auth/src/polyfills.ts",
             "tsConfig": "apps/frontend/auth/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/frontend/auth/src/favicon.ico", "apps/frontend/auth/src/assets"],
-            "styles": ["apps/frontend/auth/src/styles.scss"],
+            "assets": ["apps/frontend/auth/src/assets"],
+            "styles": ["apps/frontend/auth/src/styles/index.scss"],
             "scripts": []
           },
           "configurations": {
@@ -171,6 +171,37 @@
             "tsConfig": "apps/api/auth/tsconfig.spec.json",
             "passWithNoTests": true
           }
+        }
+      }
+    },
+    "frontend-applications": {
+      "projectType": "library",
+      "root": "libs/frontend/applications",
+      "sourceRoot": "libs/frontend/applications/src",
+      "prefix": "applicationsapplications",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/frontend/applications/tsconfig.lib.json",
+              "libs/frontend/applications/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/frontend/applications/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/frontend/applications/src/test.ts",
+            "tsConfig": "libs/frontend/applications/tsconfig.spec.json",
+            "karmaConfig": "libs/frontend/applications/karma.conf.js"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
         }
       }
     }

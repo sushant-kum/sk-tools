@@ -1,0 +1,79 @@
+@import '../../components/header/header.component.scss';
+@import '../../../styles/palette/index.palette.scss';
+
+.app-auth__login {
+  position: relative;
+
+  &__card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 420px;
+    width: 90vw;
+    border: 1px solid map-get($mat-palette-accent, 200);
+    border-radius: 8px;
+
+    &__header {
+      display: grid;
+      justify-content: center;
+      margin-bottom: 12px;
+
+      &__logo {
+        height: 36px;
+        justify-self: center;
+        margin: 16px 0;
+      }
+
+      &__title {
+        margin: 4px 0;
+        text-align: center;
+        font-size: 24px;
+      }
+
+      &__subtitle {
+        margin: 4px 0;
+        text-align: center;
+        font-size: 16px;
+      }
+    }
+
+    &__content {
+      display: grid;
+
+      &__input {
+        &__prefix-icon {
+          margin-right: 4px;
+        }
+      }
+
+      &__btn-forgot-pass {
+        justify-self: end;
+      }
+    }
+
+    &__actions {
+      display: grid;
+      grid-auto-flow: column;
+      justify-content: space-between;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .app-auth__login {
+    min-height: 100vh;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 992px) {
+  .app-auth__login {
+    min-height: calc(100vh - #{$app-auth__header__height});
+  }
+}
+
+@media screen and (min-width: 993px) {
+  .app-auth__login {
+    min-height: calc(100vh - #{$app-auth__header__height});
+  }
+}

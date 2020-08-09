@@ -15,7 +15,13 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@apps/frontend/auth/*": ["apps/frontend/auth/src/*"],
+      "@libs/frontend/applications": ["libs/frontend/applications/src/index.ts"]
+    }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": ["node_modules", "tmp"],
+  "angularCompilerOptions": {
+    "enableIvy": false
+  }
 }

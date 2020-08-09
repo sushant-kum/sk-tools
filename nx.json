@@ -31,6 +31,9 @@
     },
     "api-auth": {
       "tags": []
+    },
+    "frontend-applications": {
+      "tags": []
     }
   }
 }

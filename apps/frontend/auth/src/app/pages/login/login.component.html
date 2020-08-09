@@ -1,0 +1,80 @@
+<section class="app-auth__login mat-app-background">
+  <mat-card class="app-auth__login__card mat-elevation-z0">
+    <mat-card-header class="app-auth__login__card__header">
+      <img class="app-auth__login__card__header__logo" src="assets/images/logo-full.min.png" alt="SK Tools" />
+      <h1 class="app-auth__login__card__header__title">
+        Sign in
+      </h1>
+      <h2 class="app-auth__login__card__header__subtitle app-text-theme-accent" *ngIf="application">
+        Continue to {{ application.name }}
+      </h2>
+    </mat-card-header>
+
+    <mat-card-content class="app-auth__login__card__content">
+      <form [formGroup]="form_login">
+        <mat-form-field appearance="standard">
+          <fa-icon
+            [icon]="['fas', 'at']"
+            matPrefix
+            class="app-auth__login__card__content__input__prefix-icon"
+            [ngClass]="{
+              'app-text-theme-primary': !form_login.get('email').touched || form_login.get('email').valid,
+              'app-text-theme-warn': form_login.get('email').touched && form_login.get('email').invalid
+            }"
+          ></fa-icon>
+          <mat-label>E-mail</mat-label>
+          <input matInput formControlName="email" />
+          <mat-error *ngIf="form_login.get('email').hasError('required')"
+            ><fa-icon [icon]="['fas', 'exclamation-circle']"></fa-icon> E-mail is required</mat-error
+          >
+          <mat-error *ngIf="form_login.get('email').hasError('email')"
+            ><fa-icon [icon]="['fas', 'exclamation-circle']"></fa-icon> This should be a valid e-mail address</mat-error
+          >
+        </mat-form-field>
+
+        <mat-form-field appearance="standard">
+          <fa-icon
+            [icon]="['fas', 'asterisk']"
+            matPrefix
+            class="app-auth__login__card__content__input__prefix-icon"
+            [ngClass]="{
+              'app-text-theme-primary': !form_login.get('password').touched || form_login.get('password').valid,
+              'app-text-theme-warn': form_login.get('password').touched && form_login.get('password').invalid
+            }"
+          ></fa-icon>
+          <mat-label>Password</mat-label>
+          <input [type]="password_visible ? 'text' : 'password'" matInput formControlName="password" />
+          <button
+            mat-icon-button
+            color="primary"
+            matSuffix
+            (click)="togglePasswordVisibility()"
+            aria-label="Toggle password visibility"
+          >
+            <fa-icon
+              [icon]="password_visible ? ['fas', 'eye-slash'] : ['fas', 'eye']"
+              class="app-text-theme-primary"
+            ></fa-icon>
+          </button>
+          <mat-error *ngIf="form_login.get('password').hasError('required')"
+            ><fa-icon [icon]="['fas', 'exclamation-circle']"></fa-icon> Password is required</mat-error
+          >
+        </mat-form-field>
+      </form>
+
+      <a
+        mat-button
+        color="primary"
+        class="app-auth__login__card__content__btn-forgot-pass"
+        [routerLink]="['/', 'forgot-password']"
+      >
+        Forgot password?
+      </a>
+    </mat-card-content>
+
+    <mat-card-actions class="app-auth__login__card__actions">
+      <a mat-button color="primary" [routerLink]="['/', 'create-account']">Create account</a>
+      <button mat-flat-button color="primary" [disabled]="form_login.invalid">Sign in</button>
+    </mat-card-actions>
+  </mat-card>
+</section>
