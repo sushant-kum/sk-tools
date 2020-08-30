@@ -17,7 +17,13 @@
     "baseUrl": ".",
     "paths": {
       "@apps/frontend/auth/*": ["apps/frontend/auth/src/*"],
-      "@libs/frontend/applications": ["libs/frontend/applications/src/index.ts"]
+      "@libs/frontend/applications": ["libs/frontend/applications/src/index.ts"],
+      "@libs/frontend/countries": ["libs/frontend/countries/src/index.ts"],
+      "@libs/frontend/utils": ["libs/frontend/utils/src/index.ts"],
+      "@libs/frontend/utils/directives": ["libs/frontend/utils/src/lib/directives/index.ts"],
+      "@libs/frontend/utils/services": ["libs/frontend/utils/src/lib/services/index.ts"],
+      "@libs/frontend/utils/services/ip-geolocation": ["libs/frontend/utils/src/lib/services/ip-geolocation/index.ts"],
+      "@libs/frontend/utils/services/localstorage": ["libs/frontend/utils/src/lib/services/localstorage/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"],

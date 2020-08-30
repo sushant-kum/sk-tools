@@ -1,0 +1,165 @@
+@import '../../components/header/header.component.scss';
+@import '../../../styles/palette/index.palette.scss';
+
+.app-auth__create-account {
+  position: relative;
+
+  &__card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 420px;
+    max-height: 90vh;
+    width: 90vw;
+    border: 1px solid map-get($mat-palette-accent, 200);
+    border-radius: 8px;
+    overflow: auto;
+
+    &__header {
+      display: grid;
+      justify-content: center;
+      margin-bottom: 12px;
+
+      &__logo {
+        height: 36px;
+        justify-self: center;
+        margin: 16px 0;
+      }
+
+      &__title {
+        margin: 4px 0;
+        text-align: center;
+        font-size: 24px;
+      }
+    }
+
+    &__content {
+      display: grid;
+
+      &__form {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        column-gap: 16px;
+        width: 100%;
+
+        &__input {
+          &--first-name {
+            grid-area: app-auth__create-account__card__content__form__input--first-name;
+          }
+
+          &--last-name {
+            grid-area: app-auth__create-account__card__content__form__input--last-name;
+          }
+
+          &--email {
+            grid-area: app-auth__create-account__card__content__form__input--email;
+          }
+
+          &--country {
+            grid-area: app-auth__create-account__card__content__form__input--country;
+
+            &__country-option {
+              &__flag {
+                margin-right: 4px;
+                vertical-align: middle;
+                width: 24px;
+              }
+
+              &__name {
+                margin-right: 4px;
+              }
+
+              &__phone {
+                margin-right: 4px;
+                font-size: 0.8em;
+                color: map-get($mat-palette-primary, 500);
+              }
+
+              &__native {
+                font-size: 0.8em;
+                color: map-get($mat-palette-accent, 400);
+              }
+            }
+          }
+
+          &--phone {
+            grid-area: app-auth__create-account__card__content__form__input--phone;
+          }
+
+          &--password {
+            grid-area: app-auth__create-account__card__content__form__input--password;
+          }
+
+          &__prefix {
+            margin-right: 4px;
+
+            &--phone-code {
+              font-weight: 600;
+            }
+          }
+        }
+      }
+
+      &__btn-forgot-pass {
+        justify-self: end;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .app-auth__create-account {
+    min-height: 100vh;
+
+    &__card {
+      &__content {
+        &__form {
+          grid-template-areas:
+            'app-auth__create-account__card__content__form__input--first-name app-auth__create-account__card__content__form__input--first-name'
+            'app-auth__create-account__card__content__form__input--last-name app-auth__create-account__card__content__form__input--last-name'
+            'app-auth__create-account__card__content__form__input--email app-auth__create-account__card__content__form__input--email'
+            'app-auth__create-account__card__content__form__input--country app-auth__create-account__card__content__form__input--country'
+            'app-auth__create-account__card__content__form__input--phone app-auth__create-account__card__content__form__input--phone'
+            'app-auth__create-account__card__content__form__input--password app-auth__create-account__card__content__form__input--password';
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 992px) {
+  .app-auth__create-account {
+    min-height: calc(100vh - #{$app-auth__header__height});
+
+    &__card {
+      &__content {
+        &__form {
+          grid-template-areas:
+            'app-auth__create-account__card__content__form__input--first-name app-auth__create-account__card__content__form__input--last-name'
+            'app-auth__create-account__card__content__form__input--email app-auth__create-account__card__content__form__input--email'
+            'app-auth__create-account__card__content__form__input--country app-auth__create-account__card__content__form__input--country'
+            'app-auth__create-account__card__content__form__input--phone app-auth__create-account__card__content__form__input--password';
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 993px) {
+  .app-auth__create-account {
+    min-height: calc(100vh - #{$app-auth__header__height});
+
+    &__card {
+      &__content {
+        &__form {
+          grid-template-areas:
+            'app-auth__create-account__card__content__form__input--first-name app-auth__create-account__card__content__form__input--last-name'
+            'app-auth__create-account__card__content__form__input--email app-auth__create-account__card__content__form__input--email'
+            'app-auth__create-account__card__content__form__input--country app-auth__create-account__card__content__form__input--country'
+            'app-auth__create-account__card__content__form__input--phone app-auth__create-account__card__content__form__input--password';
+        }
+      }
+    }
+  }
+}

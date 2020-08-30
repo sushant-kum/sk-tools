@@ -12,13 +12,13 @@ $app-auth__header__height: 52px;
   z-index: 30;
 
   & &__logo {
-    grid-area: 'app-auth__header__logo';
+    grid-area: app-auth__header__logo;
     height: 36px;
     margin-right: 12px;
   }
 
   & &__title {
-    grid-area: 'app-auth__header__title';
+    grid-area: app-auth__header__title;
     margin: 0;
     font-size: 28px;
     line-height: 36px;

@@ -16,7 +16,7 @@
           <fa-icon
             [icon]="['fas', 'at']"
             matPrefix
-            class="app-auth__login__card__content__input__prefix-icon"
+            class="app-auth__login__card__content__input__prefix"
             [ngClass]="{
               'app-text-theme-primary': !form_login.get('email').touched || form_login.get('email').valid,
               'app-text-theme-warn': form_login.get('email').touched && form_login.get('email').invalid
@@ -36,7 +36,7 @@
           <fa-icon
             [icon]="['fas', 'asterisk']"
             matPrefix
-            class="app-auth__login__card__content__input__prefix-icon"
+            class="app-auth__login__card__content__input__prefix"
             [ngClass]="{
               'app-text-theme-primary': !form_login.get('password').touched || form_login.get('password').valid,
               'app-text-theme-warn': form_login.get('password').touched && form_login.get('password').invalid
@@ -67,13 +67,20 @@
         color="primary"
         class="app-auth__login__card__content__btn-forgot-pass"
         [routerLink]="['/', 'forgot-password']"
+        [queryParams]="{ application: application ? application.key : undefined }"
       >
         Forgot password?
       </a>
     </mat-card-content>
 
     <mat-card-actions class="app-auth__login__card__actions">
-      <a mat-button color="primary" [routerLink]="['/', 'create-account']">Create account</a>
+      <a
+        mat-button
+        color="primary"
+        [routerLink]="['/', 'create-account']"
+        [queryParams]="{ application: application ? application.key : undefined }"
+        >Create account</a
+      >
       <button mat-flat-button color="primary" [disabled]="form_login.invalid">Sign in</button>
     </mat-card-actions>
   </mat-card>

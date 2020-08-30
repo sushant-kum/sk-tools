@@ -1,4 +1,5 @@
 export interface IApplication {
+  key: string;
   name: string;
   hostname: string;
 }
