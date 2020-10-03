@@ -1,0 +1,55 @@
+.snackbar {
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto;
+  grid-template-areas: 'snackbar__message';
+
+  &--with-icon,
+  &--with-action {
+    grid-template-columns: auto auto;
+  }
+
+  &--with-icon:not(&--with-action) {
+    grid-template-areas: 'snackbar__icon snackbar__message';
+  }
+
+  &--with-action:not(&--with-icon) {
+    grid-template-areas: 'snackbar__message snackbar__action';
+  }
+
+  &--with-icon.snackbar--with-action {
+    grid-template-columns: auto auto auto;
+    grid-template-areas: 'snackbar__icon snackbar__message snackbar__action';
+  }
+
+  &__icon {
+    margin-right: 16px;
+    grid-area: snackbar__icon;
+
+    &--success {
+      color: #4caf50;
+    }
+
+    &--warning {
+      color: #ffeb3b;
+    }
+
+    &--error {
+      color: #f44336;
+    }
+
+    &--info {
+      color: #007aff;
+    }
+  }
+
+  &__message {
+    font-size: 0.9em;
+    grid-area: snackbar__message;
+  }
+
+  &__action {
+    margin: -14px -16px -14px 0;
+    grid-area: snackbar__action;
+  }
+}
