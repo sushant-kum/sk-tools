@@ -1,3 +1,4 @@
+import { ClipboardModule } from '@angular/cdk/clipboard';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -9,11 +10,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
+  faArrowLeft as fasArrowLeft,
   faAsterisk as fasAsterisk,
   faAt as fasAt,
+  faCopy as fasCopy,
   faExclamationCircle as fasExclamationCircle,
+  faExclamationTriangle as fasExclamationTriangle,
   faEye as fasEye,
   faEyeSlash as fasEyeSlash,
+  faFileDownload as fasFileDownload,
   faFlag as fasFlag,
   faPhoneAlt as fasPhoneAlt,
   faUser as fasUser,
@@ -21,6 +26,7 @@ import {
 
 import { DisableControlDirective } from '@libs/frontend/utils/directives';
 import { IpGeolocationModule } from '@libs/frontend/utils/services/ip-geolocation';
+import { SnackbarModule } from '@libs/frontend/utils/services/snackbar';
 
 import { CreateAccountRoutingModule } from './create-account-routing.module';
 import { CreateAccountComponent } from './create-account.component';
@@ -39,12 +45,14 @@ import { CreateAccountComponent } from './create-account.component';
     MatButtonModule,
     MatAutocompleteModule,
     MatTooltipModule,
+    ClipboardModule,
 
     // Fontawesome imports
     FontAwesomeModule,
 
     // Inbuild imports
     IpGeolocationModule,
+    SnackbarModule,
     CreateAccountRoutingModule,
   ],
 })
@@ -59,7 +67,11 @@ export class CreateAccountModule {
       fasAsterisk,
       fasEye,
       fasEyeSlash,
-      fasExclamationCircle
+      fasExclamationCircle,
+      fasArrowLeft,
+      fasFileDownload,
+      fasCopy,
+      fasExclamationTriangle
     );
     // Include regular fa icons
     // Include brand fa icons

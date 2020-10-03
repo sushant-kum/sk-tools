@@ -1,12 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { saveAs as fileSaveAs } from 'file-saver';
 import { AsYouType } from 'libphonenumber-js/max';
 import { Observable } from 'rxjs';
 import { filter, map, pairwise, startWith } from 'rxjs/operators';
 
 import { Countries, ICountry } from '@libs/frontend/countries';
 import { IIpGeolocation, IpGeolocationService } from '@libs/frontend/utils/services/ip-geolocation';
+import { SnackbarService } from '@libs/frontend/utils/services/snackbar';
+
+interface Mode {
+  account_created: boolean;
+}
 
 @Component({
   selector: 'auth-create-account',
@@ -15,14 +20,18 @@ import { IIpGeolocation, IpGeolocationService } from '@libs/frontend/utils/servi
 })
 export class CreateAccountComponent implements OnInit {
   private _countries: ICountry[];
-  private _as_you_type: AsYouType;
 
-  application_key: string;
+  mode: Mode = {
+    account_created: false,
+  };
+
   form_create_account: FormGroup;
   password_visible: boolean;
   filtered_countries: Observable<ICountry[]>;
 
-  constructor(private _route: ActivatedRoute, private _ip_geolocation_svc: IpGeolocationService) {}
+  recovery_key: string;
+
+  constructor(private _snack_bar_svc: SnackbarService, private _ip_geolocation_svc: IpGeolocationService) {}
 
   get invalidCountrySelection(): boolean {
     return this.form_create_account
@@ -42,10 +51,6 @@ export class CreateAccountComponent implements OnInit {
     this.password_visible = false;
     this._countries = new Countries().countries;
 
-    this._route.queryParams.subscribe((params) => {
-      this.application_key = params['application'];
-    });
-
     this.filtered_countries = this.form_create_account.get('country').valueChanges.pipe(
       startWith(''),
       map((value) => this._filterCountries(value))
@@ -53,12 +58,10 @@ export class CreateAccountComponent implements OnInit {
 
     this.form_create_account.get('country').valueChanges.subscribe((country: ICountry) => {
       if (country && country.alpha2) {
-        this._as_you_type = new AsYouType(country.alpha2.toUpperCase() as any);
         if (this.form_create_account.get('phone').value) {
           this.form_create_account.get('phone').setValue(null);
         }
       } else {
-        this._as_you_type = undefined;
         if (this.form_create_account.get('phone').value) {
           this.form_create_account.get('phone').setValue(null);
         }
@@ -116,6 +119,19 @@ export class CreateAccountComponent implements OnInit {
 
   togglePasswordVisibility(event: MouseEvent): void {
     this.password_visible = !this.password_visible;
+  }
+
+  downloadRecoveryKey(): void {
+    fileSaveAs(new Blob([this.recovery_key], { type: 'text/plain;charset=utf-8' }), 'SK-TOOLS-RECOVERYKEY.txt');
+    this._snack_bar_svc.show('Downloading recovery key as text file.', 'info', 'Ok', { duration: 5000 });
+  }
+
+  copiedRecoveryKey(event: boolean): void {
+    if (event) {
+      this._snack_bar_svc.show('Recovery key copied successfully to clipboard.', 'success', 'Ok', { duration: 5000 });
+    } else {
+      this._snack_bar_svc.show('Copy to clipboard failed. Try again.', 'error', null, { duration: 5000 });
+    }
   }
 }
 
