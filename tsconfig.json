@@ -14,6 +14,7 @@
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+    "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
       "@apps/frontend/auth/*": ["apps/frontend/auth/src/*"],
@@ -24,7 +25,8 @@
       "@libs/frontend/utils/services": ["libs/frontend/utils/src/lib/services/index.ts"],
       "@libs/frontend/utils/services/ip-geolocation": ["libs/frontend/utils/src/lib/services/ip-geolocation/index.ts"],
       "@libs/frontend/utils/services/localstorage": ["libs/frontend/utils/src/lib/services/localstorage/index.ts"],
-      "@libs/frontend/utils/services/snackbar": ["libs/frontend/utils/src/lib/services/snackbar/index.ts"]
+      "@libs/frontend/utils/services/snackbar": ["libs/frontend/utils/src/lib/services/snackbar/index.ts"],
+      "@libs/backend/db/user": ["libs/backend/db/user/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"],

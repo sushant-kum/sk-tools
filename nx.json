@@ -40,6 +40,9 @@
     },
     "frontend-utils": {
       "tags": []
+    },
+    "backend-db-user": {
+      "tags": []
     }
   }
 }
