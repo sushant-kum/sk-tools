@@ -168,7 +168,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/api/auth/jest.config.js",
-            "tsConfig": "apps/api/auth/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
@@ -278,7 +277,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/backend/db/user/jest.config.js",
-            "tsConfig": "libs/backend/db/user/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
