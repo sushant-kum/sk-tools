@@ -44,6 +44,12 @@
     },
     "backend-db-user": {
       "tags": []
+    },
+    "backend-utils-crypto": {
+      "tags": []
+    },
+    "backend-utils-data-models": {
+      "tags": []
     }
   }
 }
