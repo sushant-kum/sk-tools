@@ -15,7 +15,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": ["file-saver"],
+            "allowedCommonJsDependencies": ["file-saver", "crypto-js"],
             "outputPath": "dist/apps/frontend/auth",
             "index": "apps/frontend/auth/src/index.html",
             "main": "apps/frontend/auth/src/main.ts",

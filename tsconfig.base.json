@@ -24,6 +24,7 @@
       "@libs/frontend/utils": ["libs/frontend/utils/src/index.ts"],
       "@libs/frontend/utils/directives": ["libs/frontend/utils/src/lib/directives/index.ts"],
       "@libs/frontend/utils/services": ["libs/frontend/utils/src/lib/services/index.ts"],
+      "@libs/frontend/utils/services/crypto": ["libs/frontend/utils/src/lib/services/crypto/index.ts"],
       "@libs/frontend/utils/services/ip-geolocation": ["libs/frontend/utils/src/lib/services/ip-geolocation/index.ts"],
       "@libs/frontend/utils/services/localstorage": ["libs/frontend/utils/src/lib/services/localstorage/index.ts"],
       "@libs/frontend/utils/services/snackbar": ["libs/frontend/utils/src/lib/services/snackbar/index.ts"],

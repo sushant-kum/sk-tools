@@ -1,5 +1,6 @@
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -30,6 +31,7 @@ import { SnackbarModule } from '@libs/frontend/utils/services/snackbar';
 
 import { CreateAccountRoutingModule } from './create-account-routing.module';
 import { CreateAccountComponent } from './create-account.component';
+import { CreateAccountService } from './services/create-account/create-account.service';
 
 @NgModule({
   declarations: [CreateAccountComponent, DisableControlDirective],
@@ -37,6 +39,7 @@ import { CreateAccountComponent } from './create-account.component';
     // Angular imports
     CommonModule,
     ReactiveFormsModule,
+    HttpClientModule,
 
     // Angular material imports
     MatCardModule,
@@ -55,6 +58,7 @@ import { CreateAccountComponent } from './create-account.component';
     SnackbarModule,
     CreateAccountRoutingModule,
   ],
+  providers: [CreateAccountService],
 })
 export class CreateAccountModule {
   constructor(fa_icon_library: FaIconLibrary) {

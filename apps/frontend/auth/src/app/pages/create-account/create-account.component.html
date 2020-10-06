@@ -201,7 +201,9 @@
         <a mat-button color="primary" [routerLink]="['/', 'login']" queryParamsHandling="preserve"
           ><fa-icon [icon]="['fas', 'arrow-left']"></fa-icon>&nbsp;Sign in</a
         >
-        <button mat-flat-button color="primary" [disabled]="form_create_account.invalid">Next</button>
+        <button mat-flat-button color="primary" [disabled]="form_create_account.invalid" (click)="createAccount()">
+          Next
+        </button>
       </mat-card-actions>
     </mat-card>
   </ng-container>

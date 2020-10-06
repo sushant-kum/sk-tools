@@ -139,6 +139,13 @@
         "port": "3200",
         "prefix": "api/auth"
       }
+    },
+    "prod": {
+      "frontendauth": {},
+      "apiauth": {
+        "port": "3200",
+        "prefix": "api/auth"
+      }
     }
   },
   "lint-staged": {
