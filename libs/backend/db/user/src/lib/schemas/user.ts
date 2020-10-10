@@ -1,11 +1,11 @@
 import { Schema } from 'mongoose';
 
-export const UserSchema = new Schema({
-  first_name: {
+export const USER_SCHEMA = new Schema({
+  firstName: {
     type: String,
     required: true,
   },
-  last_name: {
+  lastName: {
     type: String,
     required: true,
   },
@@ -14,17 +14,17 @@ export const UserSchema = new Schema({
     required: true,
     unique: true,
   },
-  country_alpha2: String,
+  countryAlpha2: String,
   phone: String,
-  encrypted_password: {
+  encryptedPassword: {
     type: String,
     required: true,
   },
-  created_date: {
+  createdDate: {
     type: Date,
     default: Date.now,
   },
-  is_active: {
+  isActive: {
     type: Boolean,
     required: true,
     default: true,

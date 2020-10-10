@@ -10,25 +10,25 @@ import { environment as env } from '@apps/frontend/auth/environments/environment
   providedIn: 'root',
 })
 export class CreateAccountService {
-  constructor(private readonly _http: HttpClient, private readonly _crypto_svc: CryptoService) {}
+  constructor(private readonly _http: HttpClient, private readonly _cryptoSvc: CryptoService) {}
 
   createAccount(
-    first_name: string,
-    last_name: string,
+    firstName: string,
+    lastName: string,
     email: string,
     password: string,
-    country_alpha2?: string,
+    countryAlpha2?: string,
     phone?: string
   ): Observable<GenericResponse> {
-    const url = `${env.api_urls.auth__create_account}/create-account`;
-    const encrypted_password: string = this._crypto_svc.AES.encrypt(password, this._crypto_svc.MD5.hash(password));
+    const url = `${env.apiUrls.authCreateAccount}/create-account`;
+    const encryptedPassword: string = this._cryptoSvc.AES.encrypt(password, this._cryptoSvc.MD5.hash(password));
     const payload: User = {
-      first_name,
-      last_name,
+      firstName,
+      lastName,
       email,
-      country_alpha2,
+      countryAlpha2,
       phone,
-      encrypted_password,
+      encryptedPassword,
     };
 
     return this._http.post<GenericResponse>(url, payload);

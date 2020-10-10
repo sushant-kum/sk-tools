@@ -50,6 +50,9 @@
     },
     "backend-utils-data-models": {
       "tags": []
+    },
+    "backend-utils-constants": {
+      "tags": []
     }
   }
 }

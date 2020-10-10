@@ -55,33 +55,37 @@
       true,
       {
         "import-sources-order": "case-insensitive",
-        "name-imports-order": "case-insensitive",
         "grouped-imports": true,
         "groups": [
           {
             "name": "Third party dependencies",
-            "match": "^(?!((@libs)|(@apps)|(\\.\\.)|(\\.))).+",
+            "match": "^(?!((@libs)|(@apps)|(package\\.json)|(\\.\\.)|(\\.))).+",
             "order": 10
+          },
+          {
+            "name": "package.json",
+            "match": "^(package\\.json).*",
+            "order": 20
           },
           {
             "name": "Libraries",
             "match": "^(@libs).+",
-            "order": 20
+            "order": 30
           },
           {
             "name": "Apps",
             "match": "^(@apps).+",
-            "order": 30
-          },
-          {
-            "name": "Same folder",
-            "match": "^\\.\\..+",
             "order": 40
           },
           {
             "name": "Ancestral folder",
-            "match": "^\\..+",
+            "match": "^\\.\\..+",
             "order": 50
+          },
+          {
+            "name": "Same folder",
+            "match": "^\\..+",
+            "order": 60
           }
         ]
       }
@@ -90,7 +94,9 @@
     "radix": true,
     "triple-equals": [true, "allow-null-check"],
     "unified-signatures": true,
-    "variable-name": false,
+    "variable-name": {
+      "options": ["ban-keywords", "check-format", "require-const-for-all-caps", "allow-leading-underscore"]
+    },
     "nx-enforce-module-boundaries": [
       true,
       {

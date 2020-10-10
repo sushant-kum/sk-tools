@@ -61,9 +61,9 @@ import { CreateAccountService } from './services/create-account/create-account.s
   providers: [CreateAccountService],
 })
 export class CreateAccountModule {
-  constructor(fa_icon_library: FaIconLibrary) {
+  constructor(faIconLibrary: FaIconLibrary) {
     // Include solid fa icons
-    fa_icon_library.addIcons(
+    faIconLibrary.addIcons(
       fasUser,
       fasAt,
       fasFlag,

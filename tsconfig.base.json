@@ -30,7 +30,8 @@
       "@libs/frontend/utils/services/snackbar": ["libs/frontend/utils/src/lib/services/snackbar/index.ts"],
       "@libs/backend/db/user": ["libs/backend/db/user/src/index.ts"],
       "@libs/backend/utils/crypto": ["libs/backend/utils/crypto/src/index.ts"],
-      "@libs/backend/utils/data-models": ["libs/backend/utils/data-models/src/index.ts"]
+      "@libs/backend/utils/data-models": ["libs/backend/utils/data-models/src/index.ts"],
+      "@libs/backend/utils/constants": ["libs/backend/utils/constants/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"],

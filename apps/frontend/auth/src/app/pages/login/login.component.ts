@@ -13,15 +13,15 @@ export class LoginComponent implements OnInit {
   private _applications: IApplications = new Applications().applications;
 
   application: IApplication;
-  form_login: FormGroup;
-  password_visible: boolean;
+  formLogin: FormGroup;
+  passwordVisible: boolean;
 
   constructor(private _route: ActivatedRoute) {
-    this.form_login = new FormGroup({
+    this.formLogin = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, Validators.required),
     });
-    this.password_visible = false;
+    this.passwordVisible = false;
   }
 
   ngOnInit(): void {
@@ -31,6 +31,6 @@ export class LoginComponent implements OnInit {
   }
 
   togglePasswordVisibility(): void {
-    this.password_visible = !this.password_visible;
+    this.passwordVisible = !this.passwordVisible;
   }
 }

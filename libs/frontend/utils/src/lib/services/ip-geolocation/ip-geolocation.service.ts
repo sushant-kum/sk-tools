@@ -8,7 +8,7 @@ import { IIpGeolocation, TIpGeolocationField, TIpGeolocationResponseLanguage } f
   providedIn: 'root',
 })
 export class IpGeolocationService {
-  private readonly _api_key: string = 'bbdb1d89eef49b3e7a6f486a5a937bb0';
+  private readonly _apiKey: string = 'bbdb1d89eef49b3e7a6f486a5a937bb0';
 
   constructor(private _http: HttpClient) {}
 
@@ -21,7 +21,7 @@ export class IpGeolocationService {
   ): Observable<IIpGeolocation> {
     const url = `http://api.ipstack.com/${ip ? ip : 'check'}`;
     const params: HttpParams = new HttpParams()
-      .append('access_key', this._api_key)
+      .append('access_key', this._apiKey)
       .append('fields', fields && fields.length > 0 ? fields.join(',') : undefined)
       .append('hostname', hostnameLookup ? '1' : undefined)
       .append('security', securityLookup ? '1' : undefined)

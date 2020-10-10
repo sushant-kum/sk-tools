@@ -8,15 +8,15 @@ import { MongoExceptionFilter } from '../../../filters/mongo-exception/mongo-exc
 
 @Controller('create-account')
 export class CreateAccountController {
-  constructor(private readonly _user_svc: BackendDbUserService) {}
+  constructor(private readonly _userSvc: BackendDbUserService) {}
 
   @Post()
   @UseFilters(MongoExceptionFilter)
+  @ApiTags('auth')
   @ApiBody({ type: CreateUserDTO })
   @ApiCreatedResponse({ description: 'User account created successfully.', type: GenericResponse })
-  @ApiTags('auth')
   async getData(@Body() user: CreateUserDTO): Promise<GenericResponse> {
-    await this._user_svc.create(user);
+    await this._userSvc.create(user);
     return {
       message: 'User account created successfully.',
     };

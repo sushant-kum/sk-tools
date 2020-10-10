@@ -24,7 +24,7 @@ interface Mode {
   styleUrls: ['./create-account.component.scss'],
 })
 export class CreateAccountComponent implements OnInit, OnDestroy {
-  private _destroyer_subject: Subject<any> = new Subject<any>();
+  private _destroyerSubject: Subject<any> = new Subject<any>();
 
   private _countries: ICountry[];
 
@@ -32,56 +32,56 @@ export class CreateAccountComponent implements OnInit, OnDestroy {
     account_created: false,
   };
 
-  form_create_account: FormGroup;
-  password_visible: boolean;
-  filtered_countries: Observable<ICountry[]>;
+  formCreateAccount: FormGroup;
+  passwordVisible: boolean;
+  filteredCountries: Observable<ICountry[]>;
 
-  recovery_key: string;
+  recoveryKey: string;
 
   constructor(
-    private _create_account_scv: CreateAccountService,
-    private _snack_bar_svc: SnackbarService,
-    private _ip_geolocation_svc: IpGeolocationService,
-    private _crypto_svc: CryptoService,
+    private _createAccountScv: CreateAccountService,
+    private _snackBarSvc: SnackbarService,
+    private _ipGeolocationSvc: IpGeolocationService,
+    private _cryptoSvc: CryptoService,
     private _router: Router
   ) {}
 
   get invalidCountrySelection(): boolean {
-    return this.form_create_account
-      ? !this.form_create_account.get('country').value || this.form_create_account.get('country').invalid
+    return this.formCreateAccount
+      ? !this.formCreateAccount.get('country').value || this.formCreateAccount.get('country').invalid
       : false;
   }
 
   ngOnInit(): void {
-    this.form_create_account = new FormGroup({
-      first_name: new FormControl(null, [Validators.required]),
-      last_name: new FormControl(null, [Validators.required]),
+    this.formCreateAccount = new FormGroup({
+      firstName: new FormControl(null, [Validators.required]),
+      lastName: new FormControl(null, [Validators.required]),
       email: new FormControl(null, [Validators.required, Validators.email]),
       country: new FormControl(null, [requireMatAutocompleteMatch]),
       phone: new FormControl(null),
       password: new FormControl(null, [Validators.required]),
     });
-    this.password_visible = false;
+    this.passwordVisible = false;
     this._countries = new Countries().countries;
 
-    this.filtered_countries = this.form_create_account.get('country').valueChanges.pipe(
+    this.filteredCountries = this.formCreateAccount.get('country').valueChanges.pipe(
       startWith(''),
       map((value) => this._filterCountries(value))
     );
 
-    this.form_create_account.get('country').valueChanges.subscribe((country: ICountry) => {
+    this.formCreateAccount.get('country').valueChanges.subscribe((country: ICountry) => {
       if (country && country.alpha2) {
-        if (this.form_create_account.get('phone').value) {
-          this.form_create_account.get('phone').setValue(null);
+        if (this.formCreateAccount.get('phone').value) {
+          this.formCreateAccount.get('phone').setValue(null);
         }
       } else {
-        if (this.form_create_account.get('phone').value) {
-          this.form_create_account.get('phone').setValue(null);
+        if (this.formCreateAccount.get('phone').value) {
+          this.formCreateAccount.get('phone').setValue(null);
         }
       }
     });
 
-    this.form_create_account
+    this.formCreateAccount
       .get('phone')
       .valueChanges.pipe(
         pairwise(),
@@ -89,11 +89,11 @@ export class CreateAccountComponent implements OnInit, OnDestroy {
       )
       .subscribe((values: string[]) => {
         const value = values[1];
-        if (this.form_create_account.get('country').value && value) {
-          const format = new AsYouType(this.form_create_account.get('country').value.alpha2.toUpperCase()).input(value);
-          this.form_create_account.get('phone').setValue(format);
+        if (this.formCreateAccount.get('country').value && value) {
+          const format = new AsYouType(this.formCreateAccount.get('country').value.alpha2.toUpperCase()).input(value);
+          this.formCreateAccount.get('phone').setValue(format);
         } else {
-          this.form_create_account.get('phone').setValue(null);
+          this.formCreateAccount.get('phone').setValue(null);
         }
       });
 
@@ -101,8 +101,8 @@ export class CreateAccountComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._destroyer_subject.next();
-    this._destroyer_subject.unsubscribe();
+    this._destroyerSubject.next();
+    this._destroyerSubject.unsubscribe();
   }
 
   private _filterCountries(value: string | ICountry): ICountry[] {
@@ -118,11 +118,11 @@ export class CreateAccountComponent implements OnInit, OnDestroy {
   }
 
   private _getUserCountry(): void {
-    this._ip_geolocation_svc.getIpGeolocationData(['country_code']).subscribe((data: IIpGeolocation) => {
-      if (!this.form_create_account.get('country').value) {
+    this._ipGeolocationSvc.getIpGeolocationData(['country_code']).subscribe((data: IIpGeolocation) => {
+      if (!this.formCreateAccount.get('country').value) {
         for (const country of this._countries) {
           if (country.alpha2.toLowerCase() === data.country_code.toLowerCase()) {
-            this.form_create_account.get('country').setValue(country);
+            this.formCreateAccount.get('country').setValue(country);
             break;
           }
         }
@@ -135,43 +135,43 @@ export class CreateAccountComponent implements OnInit, OnDestroy {
   }
 
   togglePasswordVisibility(event: MouseEvent): void {
-    this.password_visible = !this.password_visible;
+    this.passwordVisible = !this.passwordVisible;
   }
 
   createAccount(): void {
-    this._create_account_scv
+    this._createAccountScv
       .createAccount(
-        this.form_create_account.get('first_name').value,
-        this.form_create_account.get('last_name').value,
-        this.form_create_account.get('email').value,
-        this.form_create_account.get('password').value,
-        this.form_create_account.get('country').value ? this.form_create_account.get('country').value.alpha2 : null,
-        this.form_create_account.get('phone').value
+        this.formCreateAccount.get('firstName').value,
+        this.formCreateAccount.get('lastName').value,
+        this.formCreateAccount.get('email').value,
+        this.formCreateAccount.get('password').value,
+        this.formCreateAccount.get('country').value ? this.formCreateAccount.get('country').value.alpha2 : null,
+        this.formCreateAccount.get('phone').value
           ? parsePhoneNumber(
-              `+${this.form_create_account.get('country').value.phone} ${this.form_create_account.get('phone').value}`
+              `+${this.formCreateAccount.get('country').value.phone} ${this.formCreateAccount.get('phone').value}`
             ).nationalNumber.toString()
           : null
       )
-      .pipe(takeUntil(this._destroyer_subject))
+      .pipe(takeUntil(this._destroyerSubject))
       .subscribe(
         () => {
           this.mode.account_created = true;
-          this.recovery_key = this._crypto_svc.MD5.hash(this.form_create_account.get('password').value);
-          this._snack_bar_svc.show('Account created successfully.', 'success', 'OK', { duration: 5000 });
+          this.recoveryKey = this._cryptoSvc.MD5.hash(this.formCreateAccount.get('password').value);
+          this._snackBarSvc.show('Account created successfully.', 'success', 'OK', { duration: 5000 });
         },
         (err: HttpErrorResponse) => {
           if (err.error.message.includes('E11000') && err.error.keys.includes('email')) {
-            this._snack_bar_svc
+            this._snackBarSvc
               .show('Account with this email address already exists. Proceed to sign in.', 'error', 'Sign in', {
                 duration: 5000,
               })
               .onAction()
-              .pipe(takeUntil(this._destroyer_subject))
+              .pipe(takeUntil(this._destroyerSubject))
               .subscribe(() => {
                 this._router.navigate(['/', 'login'], { queryParamsHandling: 'preserve' });
               });
           } else {
-            this._snack_bar_svc.show('Something went wrong. Please try again later.', 'error', 'OK', {
+            this._snackBarSvc.show('Something went wrong. Please try again later.', 'error', 'OK', {
               duration: 5000,
             });
           }
@@ -180,15 +180,15 @@ export class CreateAccountComponent implements OnInit, OnDestroy {
   }
 
   downloadRecoveryKey(): void {
-    fileSaveAs(new Blob([this.recovery_key], { type: 'text/plain;charset=utf-8' }), 'SK-TOOLS-RECOVERYKEY.txt');
-    this._snack_bar_svc.show('Downloading recovery key as text file.', 'info', 'Ok', { duration: 5000 });
+    fileSaveAs(new Blob([this.recoveryKey], { type: 'text/plain;charset=utf-8' }), 'SK-TOOLS-RECOVERYKEY.txt');
+    this._snackBarSvc.show('Downloading recovery key as text file.', 'info', 'Ok', { duration: 5000 });
   }
 
   copiedRecoveryKey(event: boolean): void {
     if (event) {
-      this._snack_bar_svc.show('Recovery key copied successfully to clipboard.', 'success', 'Ok', { duration: 5000 });
+      this._snackBarSvc.show('Recovery key copied successfully to clipboard.', 'success', 'Ok', { duration: 5000 });
     } else {
-      this._snack_bar_svc.show('Copy to clipboard failed. Try again.', 'error', null, { duration: 5000 });
+      this._snackBarSvc.show('Copy to clipboard failed. Try again.', 'error', null, { duration: 5000 });
     }
   }
 }

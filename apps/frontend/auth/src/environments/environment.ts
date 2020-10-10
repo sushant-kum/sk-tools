@@ -5,8 +5,8 @@ import { config } from 'package.json';
 
 export const environment = {
   production: false,
-  api_urls: {
-    auth__create_account: `/${config.dev.apiauth.prefix}`,
+  apiUrls: {
+    authCreateAccount: `/${config.dev.apiauth.prefix}`,
   },
 };
 

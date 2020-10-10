@@ -20,7 +20,7 @@ import { SnackbarService } from './snackbar.service';
   entryComponents: [SnackbarTemplateComponent],
 })
 export class SnackbarModule {
-  constructor(fa_icon_library: FaIconLibrary) {
-    fa_icon_library.addIcons(fasCheckCircle, fasExclamationCircle, fasExclamationTriangle, fasInfoCircle);
+  constructor(faIconLibrary: FaIconLibrary) {
+    faIconLibrary.addIcons(fasCheckCircle, fasExclamationCircle, fasExclamationTriangle, fasInfoCircle);
   }
 }

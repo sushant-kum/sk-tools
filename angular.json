@@ -50,8 +50,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "9kb",
+                  "maximumError": "15kb"
                 }
               ]
             }
@@ -148,6 +148,17 @@
                   "replace": "apps/api/auth/src/environments/environment.ts",
                   "with": "apps/api/auth/src/environments/environment.prod.ts"
                 }
+              ],
+              "externalDependencies": [
+                "@nestjs/microservices",
+                "@nestjs/microservices/microservices-module",
+                "@nestjs/websockets",
+                "@nestjs/websockets/socket-module",
+                "cache-manager",
+                "class-transformer",
+                "class-transformer/storage",
+                "class-validator",
+                "fastify-swagger"
               ]
             }
           }
@@ -325,6 +336,31 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/backend/utils/data-models/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "backend-utils-constants": {
+      "root": "libs/backend/utils/constants",
+      "sourceRoot": "libs/backend/utils/constants/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/backend/utils/constants/tsconfig.lib.json",
+              "libs/backend/utils/constants/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/backend/utils/constants/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/backend/utils/constants/jest.config.js",
             "passWithNoTests": true
           }
         }

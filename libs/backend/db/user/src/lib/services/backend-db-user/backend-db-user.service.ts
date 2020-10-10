@@ -6,9 +6,9 @@ import { CreateUserDTO, User } from '../../models/user';
 
 @Injectable()
 export class BackendDbUserService {
-  constructor(@InjectModel('User') private readonly _user_model: Model<User>) {}
+  constructor(@InjectModel('User') private readonly _userModel: Model<User>) {}
 
   create(user: CreateUserDTO): Promise<User> {
-    return new this._user_model(user).save();
+    return new this._userModel(user).save();
   }
 }

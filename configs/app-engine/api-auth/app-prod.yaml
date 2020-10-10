@@ -1,0 +1,14 @@
+runtime: nodejs12
+env: standard
+service: auth-prod
+handlers:
+  - url: .*
+    secure: always
+    script: auto
+automatic_scaling:
+  min_instances: 0
+  max_instances: 5
+  target_cpu_utilization: 0.9
+network:
+  session_affinity: true
+entrypoint: NODE_ENV=production node main.js

@@ -1,6 +1,10 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
+import { version } from 'package.json';
+
+import { environment } from '@apps/api/auth/environments/environment';
+
 @Controller()
 export class AppController {
   constructor() {}
@@ -8,6 +12,6 @@ export class AppController {
   @Get()
   @ApiTags('auth')
   getData() {
-    return { message: 'Welcome to auth!' };
+    return { app: 'api-auth', version, environment };
   }
 }

@@ -16,7 +16,7 @@ export class SnackbarTemplateComponent implements OnInit {
   action: SnackbarData['action'];
 
   constructor(
-    public snackbar_ref: MatSnackBarRef<SnackbarTemplateComponent>,
+    public snackbarRef: MatSnackBarRef<SnackbarTemplateComponent>,
     @Inject(MAT_SNACK_BAR_DATA) private _data: SnackbarData
   ) {}
 

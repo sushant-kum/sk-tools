@@ -9,7 +9,7 @@ import { SnackbarData } from './data-models/snackbar-data';
   providedIn: 'root',
 })
 export class SnackbarService {
-  constructor(private _mat_snack_bar: MatSnackBar) {}
+  constructor(private _matSnackBar: MatSnackBar) {}
 
   show(
     message: SnackbarData['message'],
@@ -17,25 +17,25 @@ export class SnackbarService {
     action?: SnackbarData['action'],
     config?: SnackbarData['config']
   ): MatSnackBarRef<SnackbarTemplateComponent> {
-    const mat_snackbar_config: MatSnackBarConfig = config !== undefined ? config : {};
-    mat_snackbar_config.panelClass =
-      mat_snackbar_config.panelClass !== undefined ? mat_snackbar_config.panelClass : 'snackbar-panel';
+    const matSnackbarConfig: MatSnackBarConfig = config !== undefined ? config : {};
+    matSnackbarConfig.panelClass =
+      matSnackbarConfig.panelClass !== undefined ? matSnackbarConfig.panelClass : 'snackbar-panel';
 
-    mat_snackbar_config.data = {
+    matSnackbarConfig.data = {
       message,
       type,
       action,
     };
 
-    const snackbar_ref: MatSnackBarRef<SnackbarTemplateComponent> = this._mat_snack_bar.openFromComponent(
+    const snackbarRef: MatSnackBarRef<SnackbarTemplateComponent> = this._matSnackBar.openFromComponent(
       SnackbarTemplateComponent,
-      mat_snackbar_config
+      matSnackbarConfig
     );
 
-    return snackbar_ref;
+    return snackbarRef;
   }
 
   closeAll(): void {
-    this._mat_snack_bar.dismiss();
+    this._matSnackBar.dismiss();
   }
 }

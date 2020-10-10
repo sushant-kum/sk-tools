@@ -2,7 +2,7 @@ import { config } from 'package.json';
 
 export const environment = {
   production: true,
-  api_urls: {
-    auth__create_account: `/${config.prod.apiauth.prefix}`,
+  apiUrls: {
+    authCreateAccount: `${config.prod.apiauth.hostname}/${config.prod.apiauth.prefix}`,
   },
 };
