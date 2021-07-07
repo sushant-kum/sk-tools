@@ -1,0 +1,283 @@
+<section class="app-auth__create-account mat-app-background">
+  <ng-container *ngIf="!mode.account_created; else templateRecoveryKey">
+    <mat-card class="app-auth__create-account__enter-details__card mat-elevation-z0">
+      <mat-card-header class="app-auth__create-account__enter-details__card__header">
+        <img
+          class="app-auth__create-account__enter-details__card__header__logo"
+          src="assets/images/logo-full.min.png"
+          alt="SK Tools"
+        />
+        <h1 class="app-auth__create-account__enter-details__card__header__title">
+          Create account
+        </h1>
+      </mat-card-header>
+
+      <mat-card-content class="app-auth__create-account__enter-details__card__content">
+        <form [formGroup]="formCreateAccount" class="app-auth__create-account__enter-details__card__content__form">
+          <mat-form-field
+            appearance="standard"
+            class="app-auth__create-account__enter-details__card__content__form__input--first-name"
+          >
+            <fa-icon
+              [icon]="['fas', 'user']"
+              matPrefix
+              class="app-auth__create-account__enter-details__card__content__form__input__prefix"
+              [ngClass]="{
+                'app-text-theme-primary':
+                  !formCreateAccount.get('firstName').touched || formCreateAccount.get('firstName').valid,
+                'app-text-theme-warn':
+                  formCreateAccount.get('firstName').touched && formCreateAccount.get('firstName').invalid
+              }"
+            ></fa-icon>
+            <mat-label>First name</mat-label>
+            <input matInput formControlName="firstName" />
+            <mat-error *ngIf="formCreateAccount.get('firstName').hasError('required')"
+              ><fa-icon [icon]="['fas', 'exclamation-circle']"></fa-icon> First name is required</mat-error
+            >
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="standard"
+            class="app-auth__create-account__enter-details__card__content__form__input--last-name"
+          >
+            <fa-icon
+              [icon]="['fas', 'user']"
+              matPrefix
+              class="app-auth__create-account__enter-details__card__content__form__input__prefix"
+              [ngClass]="{
+                'app-text-theme-primary':
+                  !formCreateAccount.get('lastName').touched || formCreateAccount.get('lastName').valid,
+                'app-text-theme-warn':
+                  formCreateAccount.get('lastName').touched && formCreateAccount.get('lastName').invalid
+              }"
+            ></fa-icon>
+            <mat-label>Last name</mat-label>
+            <input matInput formControlName="lastName" />
+            <mat-error *ngIf="formCreateAccount.get('lastName').hasError('required')"
+              ><fa-icon [icon]="['fas', 'exclamation-circle']"></fa-icon> Last name is required</mat-error
+            >
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="standard"
+            class="app-auth__create-account__enter-details__card__content__form__input--email"
+          >
+            <fa-icon
+              [icon]="['fas', 'at']"
+              matPrefix
+              class="app-auth__create-account__enter-details__card__content__form__input__prefix"
+              [ngClass]="{
+                'app-text-theme-primary':
+                  !formCreateAccount.get('email').touched || formCreateAccount.get('email').valid,
+                'app-text-theme-warn': formCreateAccount.get('email').touched && formCreateAccount.get('email').invalid
+              }"
+            ></fa-icon>
+            <mat-label>E-mail</mat-label>
+            <input matInput formControlName="email" />
+            <mat-error *ngIf="formCreateAccount.get('email').hasError('required')"
+              ><fa-icon [icon]="['fas', 'exclamation-circle']"></fa-icon> E-mail is required</mat-error
+            >
+            <mat-error *ngIf="formCreateAccount.get('email').hasError('email')"
+              ><fa-icon [icon]="['fas', 'exclamation-circle']"></fa-icon> This should be a valid e-mail
+              address</mat-error
+            >
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="standard"
+            class="app-auth__create-account__enter-details__card__content__form__input--country"
+          >
+            <fa-icon
+              [icon]="['fas', 'flag']"
+              matPrefix
+              class="app-auth__create-account__enter-details__card__content__form__input__prefix"
+              [ngClass]="{
+                'app-text-theme-primary':
+                  !formCreateAccount.get('country').touched || formCreateAccount.get('country').valid,
+                'app-text-theme-warn':
+                  formCreateAccount.get('country').touched && formCreateAccount.get('country').invalid
+              }"
+            ></fa-icon>
+            <mat-label>Country</mat-label>
+            <input matInput formControlName="country" [matAutocomplete]="autoCountry" />
+            <mat-autocomplete autoActiveFirstOption #autoCountry="matAutocomplete" [displayWith]="displayWithCountry">
+              <mat-option
+                class="app-auth__create-account__enter-details__card__content__form__input--country__country-option"
+                *ngFor="let country of filteredCountries | async"
+                [value]="country"
+                [matTooltip]="country.name + ' | +' + country.phone + ' | ' + country.native"
+              >
+                <img
+                  class="app-auth__create-account__enter-details__card__content__form__input--country__country-option__flag"
+                  aria-hidden
+                  [src]="country.flag"
+                />
+                <span
+                  class="app-auth__create-account__enter-details__card__content__form__input--country__country-option__name"
+                  >{{ country.name }}</span
+                >
+                <span
+                  class="app-auth__create-account__enter-details__card__content__form__input--country__country-option__phone"
+                  >+{{ country.phone }}</span
+                >
+                <span
+                  class="app-auth__create-account__enter-details__card__content__form__input--country__country-option__native"
+                  >{{ country.native }}</span
+                >
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="standard"
+            class="app-auth__create-account__enter-details__card__content__form__input--phone"
+          >
+            <fa-icon
+              *ngIf="invalidCountrySelection"
+              [icon]="['fas', 'phone-alt']"
+              matPrefix
+              class="app-auth__create-account__enter-details__card__content__form__input__prefix"
+              [ngClass]="{
+                'app-text-theme-primary':
+                  !formCreateAccount.get('phone').touched || formCreateAccount.get('phone').valid,
+                'app-text-theme-warn': formCreateAccount.get('phone').touched && formCreateAccount.get('phone').invalid
+              }"
+            ></fa-icon>
+            <span
+              *ngIf="!invalidCountrySelection"
+              matPrefix
+              class="app-auth__create-account__enter-details__card__content__form__input__prefix app-auth__create-account__enter-details__card__content__form__input__prefix--phone-code"
+              [ngClass]="{
+                'app-text-theme-primary':
+                  !formCreateAccount.get('phone').touched || formCreateAccount.get('phone').valid,
+                'app-text-theme-warn': formCreateAccount.get('phone').touched && formCreateAccount.get('phone').invalid
+              }"
+              >+{{ formCreateAccount.get('country').value.phone }}</span
+            >
+            <mat-label>Phone</mat-label>
+            <input type="tel" matInput formControlName="phone" [utilsDisableControl]="invalidCountrySelection" />
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="standard"
+            class="app-auth__create-account__enter-details__card__content__form__input--password"
+          >
+            <fa-icon
+              [icon]="['fas', 'asterisk']"
+              matPrefix
+              class="app-auth__create-account__enter-details__card__content__form__input__prefix"
+              [ngClass]="{
+                'app-text-theme-primary':
+                  !formCreateAccount.get('password').touched || formCreateAccount.get('password').valid,
+                'app-text-theme-warn':
+                  formCreateAccount.get('password').touched && formCreateAccount.get('password').invalid
+              }"
+            ></fa-icon>
+            <mat-label>Password</mat-label>
+            <input [type]="passwordVisible ? 'text' : 'password'" matInput formControlName="password" />
+            <button
+              mat-icon-button
+              color="primary"
+              matSuffix
+              (click)="togglePasswordVisibility($event)"
+              aria-label="Toggle password visibility"
+            >
+              <fa-icon
+                [icon]="passwordVisible ? ['fas', 'eye-slash'] : ['fas', 'eye']"
+                class="app-text-theme-primary"
+              ></fa-icon>
+            </button>
+            <mat-error *ngIf="formCreateAccount.get('password').hasError('required')"
+              ><fa-icon [icon]="['fas', 'exclamation-circle']"></fa-icon> Password is required</mat-error
+            >
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+
+      <mat-card-actions class="app-auth__create-account__enter-details__card__actions">
+        <a mat-button color="primary" [routerLink]="['/', 'login']" queryParamsHandling="preserve"
+          ><fa-icon [icon]="['fas', 'arrow-left']"></fa-icon>&nbsp;Sign in</a
+        >
+        <button mat-flat-button color="primary" [disabled]="formCreateAccount.invalid" (click)="createAccount()">
+          Next
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-container>
+
+  <ng-template #templateRecoveryKey>
+    <mat-card class="app-auth__create-account__recovery-key__card mat-elevation-z0">
+      <mat-card-header class="app-auth__create-account__recovery-key__card__header">
+        <img
+          class="app-auth__create-account__recovery-key__card__header__logo"
+          src="assets/images/logo-full.min.png"
+          alt="SK Tools"
+        />
+        <h1 class="app-auth__create-account__recovery-key__card__header__title">
+          Your recovery key
+        </h1>
+      </mat-card-header>
+
+      <mat-card-content class="app-auth__create-account__recovery-key__card__content">
+        <section class="app-auth__create-account__recovery-key__card__content__key-container">
+          <section class="app-auth__create-account__recovery-key__card__content__key-container__key">
+            {{ recoveryKey }}
+          </section>
+          <section class="app-auth__create-account__recovery-key__card__content__key-container__actions">
+            <button
+              mat-icon-button
+              color="primary"
+              class="app-auth__create-account__recovery-key__card__content__key-container__actions__download-key"
+              matTooltip="Download recovery key as text file"
+              (click)="downloadRecoveryKey()"
+            >
+              <fa-icon [icon]="['fas', 'file-download']"></fa-icon>
+            </button>
+            <button
+              mat-icon-button
+              color="primary"
+              class="app-auth__create-account__recovery-key__card__content__key-container__actions__copy-key"
+              matTooltip="Copy recovery key to clipboard"
+              [cdkCopyToClipboard]="recoveryKey"
+              (cdkCopyToClipboardCopied)="copiedRecoveryKey($event)"
+            >
+              <fa-icon [icon]="['fas', 'copy']"></fa-icon>
+            </button>
+          </section>
+        </section>
+        <section class="app-auth__create-account__recovery-key__card__content__key-description">
+          <h3>Your password unlocks your Recovery Key</h3>
+          <p>
+            Your data is only readable through a chain of decryption operations that begins with your master encryption
+            key (Recovery Key), which we store encrypted with your password. This means that if you lose your password,
+            your Recovery Key can no longer be decrypted, and you can no longer decrypt your data.
+          </p>
+          <p>
+            Exporting the Recovery Key and keeping it in a secure location enables you to set a new password without
+            data loss.
+          </p>
+          <h3>Secure</h3>
+          <p>
+            An external attacker cannot gain access to your account with just your key. A password reset requires access
+            to your recovery key.
+          </p>
+        </section>
+        <section class="app-auth__create-account__recovery-key__card__content__key-caution">
+          <fa-icon
+            class="app-auth__create-account__recovery-key__card__content__key-caution__bg-icon"
+            [icon]="['fas', 'exclamation-triangle']"
+          ></fa-icon>
+          <h3>Caution</h3>
+          Always keep physical control of your Recovery Key (e.g. on a client device, external storage, or print). Do
+          not store it on the Internet (at least not without encryption).
+        </section>
+      </mat-card-content>
+
+      <mat-card-actions class="app-auth__create-account__recovery-key__card__actions">
+        <a mat-button color="primary" [routerLink]="['/', 'login']" queryParamsHandling="preserve"
+          ><fa-icon [icon]="['fas', 'arrow-left']"></fa-icon>&nbsp;Go to Sign in</a
+        >
+      </mat-card-actions>
+    </mat-card>
+  </ng-template>
+</section>

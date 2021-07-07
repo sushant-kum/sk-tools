@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/sushant-kum/sk-tools"
   },
-  "homepage": "https://tools.sushantk.com",
+  "homepage": "https://sk-tools.sushantk.com",
   "author": {
     "name": "Sushant Kumar",
     "email": "sushant.kum96@gmail.com",
@@ -14,10 +14,12 @@
   },
   "scripts": {
     "ng": "nx",
-    "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
+    "postinstall": "node tools/postinstall/postinstall.js",
     "nx": "nx",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "npm run serve::all",
+    "serve::frontend-auth": "ng run frontend-auth:serve --port %npm_package_config_dev_frontendauth_port% --proxy-config ./apps/frontend/auth/proxy.conf.js",
+    "serve::api-auth": "ng run api-auth:serve",
+    "serve::all": "concurrently \"npm run serve::frontend-auth\" \"npm run serve::api-auth\"",
     "test": "ng test",
     "lint": "nx workspace-lint && ng lint",
     "e2e": "ng e2e",
@@ -30,55 +32,90 @@
     "affected:dep-graph": "nx affected:dep-graph",
     "affected": "nx affected",
     "format": "nx format:write",
-    "format:write": "nx format:write",
-    "format:check": "nx format:check",
+    "format:write": "nx format:write --all",
+    "format:check": "nx format:check --all",
     "update": "ng update @nrwl/workspace",
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "commit": "git-cz",
     "release": "standard-version",
-    "prefreshinstall": "npx del-cli ./node_modules/",
-    "freshinstall": "npm install"
+    "preinstall:fresh": "npx del-cli ./node_modules/",
+    "install:fresh": "npm install",
+    "build:prod::frontend-auth": "ng build frontend-auth --prod --aot --baseHref=%npm_package_config_prod_frontendauth_baseHref% --buildOptimizer --extractCss --extractLicenses --no-namedChunks --optimization --outputHashing=all --progress --statsJson --verbose",
+    "build:prod::api-auth": "ng build api-auth --prod --extractLicenses --optimization",
+    "postbuild:prod::api-auth": "npx cpy-cli .env dist/apps/api/auth/ | npx cpy-cli configs/app-engine/api-auth/app-*.yaml dist/apps/api/auth/",
+    "deploy:prod::frontend-auth": "firebase deploy --only hosting:prod",
+    "build--deploy:prod::frontend-auth": "npm run build:prod::frontend-auth && npm run deploy:prod::frontend-auth",
+    "deploy:prod::api-auth": "gcloud app deploy dist/apps/api/auth/app-prod.yaml --quiet",
+    "build--deploy:prod::api-auth": "npm run build:prod::api-auth && npm run deploy:prod::api-auth"
   },
   "dependencies": {
-    "@angular/animations": "^10.0.3",
+    "@angular/animations": "10.1.3",
     "@angular/cdk": "^10.0.1",
-    "@angular/common": "^10.0.3",
-    "@angular/compiler": "^10.0.3",
-    "@angular/core": "^10.0.3",
-    "@angular/forms": "^10.0.3",
+    "@angular/common": "10.1.3",
+    "@angular/compiler": "10.1.3",
+    "@angular/core": "10.1.3",
+    "@angular/forms": "10.1.3",
     "@angular/material": "^10.0.1",
-    "@angular/platform-browser": "^10.0.3",
-    "@angular/platform-browser-dynamic": "^10.0.3",
-    "@angular/router": "^10.0.3",
-    "@nrwl/angular": "9.5.1",
-    "rxjs": "^6.6.0",
+    "@angular/platform-browser": "10.1.3",
+    "@angular/platform-browser-dynamic": "10.1.3",
+    "@angular/router": "10.1.3",
+    "@fortawesome/angular-fontawesome": "^0.7.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.30",
+    "@fortawesome/free-brands-svg-icons": "^5.14.0",
+    "@fortawesome/free-regular-svg-icons": "^5.14.0",
+    "@fortawesome/free-solid-svg-icons": "^5.14.0",
+    "@nestjs/common": "7.0.0",
+    "@nestjs/core": "7.0.0",
+    "@nestjs/mongoose": "^7.0.2",
+    "@nestjs/platform-express": "7.0.0",
+    "@nestjs/swagger": "^4.6.1",
+    "@nrwl/angular": "10.3.0",
+    "countries-list": "^2.5.6",
+    "crypto-js": "^4.0.0",
+    "dotenv": "^8.2.0",
+    "file-saver": "^2.0.2",
+    "helmet": "^4.1.1",
+    "libphonenumber-js": "^1.7.57",
+    "mongodb": "^3.6.2",
+    "mongoose": "^5.10.7",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "6.5.5",
+    "swagger-ui-express": "^4.1.4",
     "zone.js": "^0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "0.1000.2",
-    "@angular/cli": "10.0.2",
-    "@angular/compiler-cli": "^10.0.3",
-    "@angular/language-service": "^10.0.3",
+    "@angular-devkit/build-angular": "0.1001.4",
+    "@angular/cli": "10.1.4",
+    "@angular/compiler-cli": "10.1.3",
+    "@angular/language-service": "10.1.3",
     "@commitlint/cli": "^9.0.1",
     "@commitlint/config-conventional": "^9.0.1",
-    "@nrwl/cypress": "9.5.1",
-    "@nrwl/jest": "9.5.1",
-    "@nrwl/workspace": "9.5.1",
+    "@nestjs/schematics": "7.0.0",
+    "@nestjs/testing": "7.0.0",
+    "@nrwl/cli": "10.3.0",
+    "@nrwl/cypress": "10.3.0",
+    "@nrwl/jest": "10.3.0",
+    "@nrwl/nest": "10.3.0",
+    "@nrwl/node": "10.3.0",
+    "@nrwl/workspace": "10.3.0",
+    "@types/crypto-js": "^4.0.0",
+    "@types/file-saver": "^2.0.1",
     "@types/jasmine": "~3.5.11",
-    "@types/jest": "26.0.4",
+    "@types/jest": "26.0.8",
+    "@types/mongoose": "^5.7.36",
     "@types/node": "^14.0.22",
     "codelyzer": "^6.0.0",
+    "concurrently": "^5.3.0",
     "cypress": "^4.1.0",
     "cz-conventional-changelog": "^3.2.0",
-    "dotenv": "8.2.0",
-    "eslint": "7.4.0",
+    "eslint": "7.10.0",
     "husky": "^4.2.5",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~5.0.2",
-    "jest": "26.1.0",
-    "jest-preset-angular": "8.2.1",
+    "jest": "26.2.2",
+    "jest-preset-angular": "8.3.1",
     "karma": "~5.1.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage-istanbul-reporter": "~3.0.3",
@@ -87,17 +124,36 @@
     "lint-staged": "^10.2.11",
     "prettier": "2.0.5",
     "standard-version": "^8.0.0",
-    "ts-jest": "26.1.1",
+    "ts-jest": "26.4.0",
     "ts-node": "~8.10.2",
     "tslint": "~6.1.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-etc": "^1.11.1",
     "tslint-plugin-prettier": "^2.3.0",
-    "typescript": "~3.9.6"
+    "typescript": "4.0.3"
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
+    },
+    "dev": {
+      "frontendauth": {
+        "port": "4200"
+      },
+      "apiauth": {
+        "port": "3200",
+        "prefix": "api/auth"
+      }
+    },
+    "prod": {
+      "frontendauth": {
+        "baseHref": "/auth/"
+      },
+      "apiauth": {
+        "hostname": "https://api.sk-tools.sushantk.com",
+        "port": "3200",
+        "prefix": "api/auth"
+      }
     }
   },
   "lint-staged": {
@@ -105,7 +161,7 @@
       "npm run affected:lint  -- --uncommitted --fix --parallel"
     ],
     "*.{ts,json,md,scss,html,js}": [
-      "npm run format:write -- --uncommitted"
+      "nx format:write --uncommitted"
     ]
   },
   "husky": {

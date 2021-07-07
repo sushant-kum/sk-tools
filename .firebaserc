@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "sk-tools-9d7cf"
+  },
+  "targets": {
+    "sk-tools-9d7cf": {
+      "hosting": {
+        "prod": [
+          "sk-tools-9d7cf"
+        ],
+        "testbed": [
+          "testbed-sk-tools-9d7cf"
+        ]
+      }
+    }
+  }
+}

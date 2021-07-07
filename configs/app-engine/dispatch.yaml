@@ -1,0 +1,3 @@
+dispatch:
+  - url: 'api.sk-tools.sushantk.com/api/auth/*'
+    service: auth-prod

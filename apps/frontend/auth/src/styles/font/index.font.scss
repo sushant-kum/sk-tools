@@ -1,0 +1,15 @@
+@import './variables.font.scss';
+@import './raleway.font.scss';
+@import './roboto.font.scss';
+@import './mixins.font.scss';
+
+@include app-text-font-family();
+@include app-text-font-weight();
+
+.app-text-italic {
+  font-style: italic;
+}
+
+.app-text-normal {
+  font-style: normal;
+}

@@ -1,0 +1,34 @@
+{
+  "hosting": [
+    {
+      "target": "prod",
+      "public": "dist/apps/frontend",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/auth/index.html"
+        },
+        {
+          "source": "/auth/**",
+          "destination": "/auth/index.html"
+        }
+      ]
+    },
+    {
+      "target": "testbed",
+      "public": "dist/apps/frontend",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/auth/index.html"
+        },
+        {
+          "source": "/auth/**",
+          "destination": "/auth/index.html"
+        }
+      ]
+    }
+  ]
+}

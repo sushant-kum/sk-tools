@@ -1,0 +1,35 @@
+<div class="snackbar" [ngClass]="{ 'snackbar--with-icon': type, 'snackbar--with-action': action }">
+  <ng-container *ngIf="type" [ngSwitch]="type">
+    <div class="snackbar__icon snackbar__icon--success" *ngSwitchCase="'success'">
+      <fa-icon [icon]="['fas', 'check-circle']"></fa-icon>
+    </div>
+    <div class="snackbar__icon snackbar__icon--warning" *ngSwitchCase="'warning'">
+      <fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon>
+    </div>
+    <div class="snackbar__icon snackbar__icon--error" *ngSwitchCase="'error'">
+      <fa-icon [icon]="['fas', 'exclamation-circle']"></fa-icon>
+    </div>
+    <div class="snackbar__icon snackbar__icon--info" *ngSwitchCase="'info'">
+      <fa-icon [icon]="['fas', 'info-circle']"></fa-icon>
+    </div>
+  </ng-container>
+
+  <div *ngIf="!isMessageInnerHtml()" class="snackbar__message snackbar__message--string">
+    {{ message }}
+  </div>
+  <div
+    *ngIf="isMessageInnerHtml()"
+    class="snackbar__message snackbar__message--html"
+    [innerHTML]="messageAsInnerHTML().innerHTML"
+  ></div>
+
+  <button
+    *ngIf="action"
+    class="snackbar__action"
+    mat-button
+    [color]="type === 'error' ? 'warn' : 'primary'"
+    (click)="snackbarRef.dismissWithAction()"
+  >
+    {{ action }}
+  </button>
+</div>

@@ -1,0 +1,41 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@apps/frontend/auth/*": ["apps/frontend/auth/src/*"],
+      "@apps/api/auth/*": ["apps/api/auth/src/*"],
+      "@libs/frontend/applications": ["libs/frontend/applications/src/index.ts"],
+      "@libs/frontend/countries": ["libs/frontend/countries/src/index.ts"],
+      "@libs/frontend/utils": ["libs/frontend/utils/src/index.ts"],
+      "@libs/frontend/utils/directives": ["libs/frontend/utils/src/lib/directives/index.ts"],
+      "@libs/frontend/utils/services": ["libs/frontend/utils/src/lib/services/index.ts"],
+      "@libs/frontend/utils/services/crypto": ["libs/frontend/utils/src/lib/services/crypto/index.ts"],
+      "@libs/frontend/utils/services/ip-geolocation": ["libs/frontend/utils/src/lib/services/ip-geolocation/index.ts"],
+      "@libs/frontend/utils/services/localstorage": ["libs/frontend/utils/src/lib/services/localstorage/index.ts"],
+      "@libs/frontend/utils/services/snackbar": ["libs/frontend/utils/src/lib/services/snackbar/index.ts"],
+      "@libs/backend/db/user": ["libs/backend/db/user/src/index.ts"],
+      "@libs/backend/utils/crypto": ["libs/backend/utils/crypto/src/index.ts"],
+      "@libs/backend/utils/data-models": ["libs/backend/utils/data-models/src/index.ts"],
+      "@libs/backend/utils/constants": ["libs/backend/utils/constants/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"],
+  "angularCompilerOptions": {
+    "enableIvy": false
+  }
+}
